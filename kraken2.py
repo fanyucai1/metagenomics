@@ -3,7 +3,7 @@ import subprocess
 import argparse
 
 docker_name="mngs:latest"
-parser=argparse.ArgumentParser("Filter human host and phix sequence.")
+parser=argparse.ArgumentParser("Classified out option on the miniKraken database,")
 parser.add_argument("-p1","--pe1",help="5' reads",required=True)
 parser.add_argument("-p2","--pe2",help="3' reads",required=True)
 parser.add_argument("-i","--index",help="directory contains kraken2 index",required=True)

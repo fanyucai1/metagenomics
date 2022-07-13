@@ -29,8 +29,14 @@ adapter_dir=os.path.dirname(args.adapter)
 ######################################
 cmd="docker run -v %s:/raw_data/ -v %s:/reference/ -v %s:/outdir/ %s "%(in_dir,adapter_dir,args.outdir,docker_name)
 
-#remove adaptors, quality filtering of reads, removal of low-quality reads, removal of short reads, discarding reads shorter than 36 nucleotides,
-cmd+="/software/fastp -i /raw_data/%s -I /raw_data/%s -o /outdir/%s.qc.R1.fq.gz -O /outdir/%s.qc.R2.fq.gz --dedup --thread 16 --low_complexity_filter --adapter_fasta /reference/%s --length_required 36 --html /outdir/%s.qc.html" %(a,b,args.prefix,args.prefix,adapter_filename,args.prefix)
+#     remove adaptors
+#     quality filtering of reads
+#     removal of low-quality reads(q < 20)
+#     removal of short reads ( < 36 bp)
+#     deduplication for FASTQ data
+cmd+="/software/fastp -i /raw_data/%s -I /raw_data/%s -o /outdir/%s.qc.R1.fq.gz" \
+     " -O /outdir/%s.qc.R2.fq.gz --dedup --thread 16 --low_complexity_filter" \
+     " --adapter_fasta /reference/%s --length_required 36 --html /outdir/%s.qc.html" %(a,b,args.prefix,args.prefix,adapter_filename,args.prefix)
 
 print(cmd)
 subprocess.check_call(cmd,shell=True)

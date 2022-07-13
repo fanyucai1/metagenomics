@@ -5,7 +5,7 @@ import argparse
 
 docker_name="mngs:latest"
 
-parser=argparse.ArgumentParser("\nResFinder identifies acquired antimicrobial resistance genes in total or partial sequenced isolates of bacteria.\n")
+parser=argparse.ArgumentParser("\nIdentify resistance genes.\n")
 parser.add_argument("-p1","--pe1",help="5 reads",required=True)
 parser.add_argument("-p2","--pe2",help="3 reads",required=True)
 parser.add_argument("-o","--outdir",help="output directory",required=True)

@@ -3,7 +3,7 @@ import subprocess
 import argparse
 
 docker_name="mngs:latest"
-parser=argparse.ArgumentParser("Run metaphlan to classify.")
+parser=argparse.ArgumentParser("MetaPhlAn2 uses a database of clade-specific marker genes to classify\n")
 parser.add_argument("-p1","--pe1",help="5' reads",required=True)
 parser.add_argument("-p2","--pe2",help="3' reads",required=True)
 parser.add_argument("-i","--index",help="directory contains metaphlan index",required=True)
