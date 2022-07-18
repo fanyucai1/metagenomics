@@ -18,6 +18,6 @@ filename=infile.split("/")[-1]
 dirname=os.path.dirname(infile)
 cmd="docker run -v %s:/raw_data/ -v %s:/outdir/ %s "%(dirname,args.outdir,docker_name)
 
-cmd+="prodigal_v2.6.3 -i /raw_data/%s -o /outdir/nt.fa -a /outdir/nr.fa -p meta"
+cmd+="prodigal_v2.6.3 -i /raw_data/%s -o /outdir/nt.fa -a /outdir/nr.fa -p meta"%(filename)
 print(cmd)
 subprocess.check_call(cmd,shell=True)
