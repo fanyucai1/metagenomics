@@ -42,7 +42,8 @@ human_phinx_index(host index) ::
     # download human genome sequence from gencode
     wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_41/GRCh38.p13.genome.fa.gz
     cd reference/human_phinx_index/
-    bowtie-build NC_001422.fasta
+    cat GRCh38.p13.genome.fa.gz NC_001422.fasta >host.fasta
+    bowtie2-build host.fasta host.fasta
 
 adapter ::
 
