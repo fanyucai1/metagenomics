@@ -22,14 +22,16 @@ RUN cd /software/bamtools-2.5.1/build && /software/cmake-3.24.0-rc3-linux-x86_64
 COPY fastp /software/
 COPY freebayes-1.3.6-linux-amd64-static /software/
 COPY run.sh /software/
-COPY diamond_0.8.36 /bin/
+COPY diamond /bin/
 COPY prodigal_v2.6.3 /bin/
 COPY jellyfish_v2.2.10 /bin/
 RUN sh /software/run.sh
 COPY Python-3.10.5.tgz /software/python3
 RUN cd /software/python3 && tar xvf Python-3.10.5.tgz && cd Python-3.10.5 && ./configure --prefix=/software/python3/Python-v3.10.5 --with-openssl=/usr/local/openssl && make -j20 && make install
-RUN /software/python3/Python-v3.7.0/bin/python3.7 -m pip install --upgrade pip
-RUN /software/python3/Python-v3.7.0/bin/pip3 install numpy==1.21.0 metaphlan
 COPY rgi-5.2.1.tar /software/
 RUN cd /software/ && tar xvf rgi-5.2.1.tar && cd rgi-5.2.1 && /software/python3/Python-v3.7.0/bin/python3 setup.py install
-RUN /software/python3/Python-v3.7.0/bin/pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple cgelib pandas tabulate
+RUN /software/python3/Python-v3.10.5/bin/python3.10 -m pip install --upgrade pip
+RUN /software/python3/Python-v3.10.5/bin/pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple wheel tabulate biopython cgecore gitpython python-dateutil
+RUN /software/python3/Python-v3.10.5/bin/pip3 install MetaPhlAn
+RUN cd /software/ && rm -rf *tar.gz *rpm *tar *bz2 *zip *gz run.sh /software/python3/Python-3.10.5.tgz /software/python3/Python-3.10.5 /software/python3/Python-3.7.0
+RUN cd /software/ && wget https://bitbucket.org/genomicepidemiology/resfinder/get/3d79426c7f4c.zip && unzip 3d79426c7f4c.zip

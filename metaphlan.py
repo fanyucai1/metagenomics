@@ -30,12 +30,12 @@ reference_dir=os.path.abspath(args.index)
 cmd="docker run -v %s:/raw_data/ -v %s:/reference/ -v %s:/outdir/ %s "%(in_dir,reference_dir,args.outdir,docker_name)
 bowtie2_index=""
 for i in os.listdir(reference_dir):
-    if i.endswith(".1.bt2"):
-        bowtie2_index=i.split('.1.bt2')[0]
+    if i.endswith(".pkl"):
+        bowtie2_index=i.split('.pkl')[0]
 
-cmd+="sh -c \"export PATH=/software/python3/Python-v3.7.0/bin/:$PATH && metaphlan /raw_data/%s,/raw_data/%s " \
+cmd+="sh -c \"export PATH=/software/python3/Python-v3.10.5/bin/:$PATH && metaphlan /raw_data/%s,/raw_data/%s " \
      "--nproc 24 --bowtie2db /reference/ --bowtie2_exe /software/bowtie2-2.4.5-linux-x86_64/bowtie2 " \
-     "--bowtie2out /outdir/%s.bowtie2.bz2 --index %s " \
+     "--bowtie2out /outdir/%s.bowtie2.bz2 --index %s --unknown_estimation " \
      "--input_type fastq -o /outdir/%s_metaphlan.txt\""\
      %(a,b,args.prefix,bowtie2_index,args.prefix)
 print(cmd)

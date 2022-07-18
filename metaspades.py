@@ -22,11 +22,12 @@ b=args.pe2.split("/")[-1]
 args.outdir=os.path.abspath(args.outdir)
 if not os.path.exists(args.outdir):
     subprocess.check_call('mkdir -p %s'%(args.outdir),shell=True)
-##############################################################################
+##############################################################################2022-Contribution of Clinical Metagenomics to the Diagnosis of Bone and Joint Infections.pdf
 cmd="docker run -v %s:/raw_data/ -v %s:/outdir/ %s "%(in_dir,args.outdir,docker_name)
 
 cmd+="sh -c \"export PATH=/software/python3/Python-v3.7.0/bin/:/software/SPAdes-3.15.4-Linux/bin:$PATH && " \
      "/software/seqtk-master/seqtk mergepe /raw_data/%s /raw_data/%s >/outdir/%s.merge.fastq && " \
-     "spades.py --threads 24 --12 /outdir/%s.merge.fastq --meta -o /outdir/ \""%(a,b,args.prefix,args.prefix)
+     "spades.py -k 21,33,55,77,99,127 --threads 24 --12 /outdir/%s.merge.fastq --meta -o /outdir/ \""%(a,b,args.prefix,args.prefix)
 
 subprocess.check_call(cmd,shell=True)
+
