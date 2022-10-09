@@ -32,6 +32,10 @@ COPY rgi-5.2.1.tar /software/
 RUN cd /software/ && tar xvf rgi-5.2.1.tar && cd rgi-5.2.1 && /software/python3/Python-v3.7.0/bin/python3 setup.py install
 RUN /software/python3/Python-v3.10.5/bin/python3.10 -m pip install --upgrade pip
 RUN /software/python3/Python-v3.10.5/bin/pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple wheel tabulate biopython cgecore gitpython python-dateutil
-RUN /software/python3/Python-v3.10.5/bin/pip3 install MetaPhlAn
+RUN /software/python3/Python-v3.10.5/bin/pip3 install MetaPhlAn==4.0.2
 RUN cd /software/ && rm -rf *tar.gz *rpm *tar *bz2 *zip *gz run.sh /software/python3/Python-3.10.5.tgz /software/python3/Python-3.10.5 /software/python3/Python-3.7.0
-RUN cd /software/ && wget https://bitbucket.org/genomicepidemiology/resfinder/get/3d79426c7f4c.zip && unzip 3d79426c7f4c.zip
+RUN yum install -y git
+RUN cd /software/ && git clone https://git@bitbucket.org/genomicepidemiology/resfinder.git
+RUN cp /software/genomicepidemiology-kma-34dd939c90cd/kma /bin/
+RUN /software/python3/Python-v3.10.5/bin/pip3 install humann
+
