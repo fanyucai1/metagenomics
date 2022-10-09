@@ -66,10 +66,18 @@ ResFinder ::
 
 diamond ::
 
+    mkdir reference/diamond
     wget https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nr.gz
-    wget https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/swissprot.gz
-    diamond makedb --in swissprot -d swissprot
+    gunzip nr.gz
     diamond makedb --in nr -d nr
+
+megan6 ::
+
+    https://software-ab.informatik.uni-tuebingen.de/download/megan6/welcome.html
+    # download mapping file:
+    mkdir reference/MEGAN
+    wget https://software-ab.informatik.uni-tuebingen.de/download/megan6/megan-map-Feb2022.db.zip
+    gunzip megan-map-Feb2022.db.zip
 
 VFDB ::
 
