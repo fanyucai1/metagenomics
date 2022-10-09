@@ -11,6 +11,17 @@ metaphlan ::
     wget http://cmprod1.cibio.unitn.it/biobakery3/metaphlan_databases/mpa_v31_CHOCOPhlAn_201901_marker_info.txt.bz2
     bunzip2 mpa_v31_CHOCOPhlAn_201901_marker_info.txt.bz2
 
+    metaphlan/
+    ├── mpa_v31_CHOCOPhlAn_201901.1.bt2
+    ├── mpa_v31_CHOCOPhlAn_201901.2.bt2
+    ├── mpa_v31_CHOCOPhlAn_201901.3.bt2
+    ├── mpa_v31_CHOCOPhlAn_201901.4.bt2
+    ├── mpa_v31_CHOCOPhlAn_201901.fna
+    ├── mpa_v31_CHOCOPhlAn_201901_marker_info.txt
+    ├── mpa_v31_CHOCOPhlAn_201901.pkl
+    ├── mpa_v31_CHOCOPhlAn_201901.rev.1.bt2
+    └── mpa_v31_CHOCOPhlAn_201901.rev.2.bt2
+
 CARD   ::
 
     #https://github.com/arpcard/rgi#load-card-reference-data
@@ -28,12 +39,40 @@ CARD   ::
     rgi wildcard_annotation -i wildcard --card_json card.json -v version_number
     rgi load --wildcard_annotation wildcard_database_v3.0.2.fasta --wildcard_index /path/to/wildcard/index-for-model-sequences.txt --card_annotation card_database_v3.0.1.fasta --local
 
+    CARD/
+    ├── card.json
+    └── localDB
+        ├── 61mer_database.json
+        ├── amr_61mer.txt
+        ├── bwt
+        ├── card.json
+        ├── card_reference.fasta
+        ├── card_wildcard_reference.fasta
+        ├── index-for-model-sequences.txt
+        └── loaded_databases.json
+
+
+
+
 kraken2 ::
 
     mkdir -p reference/kraken2
     cd reference/kraken2
     wget https://genome-idx.s3.amazonaws.com/kraken/k2_standard_20220607.tar.gz
 
+    kraken2
+    ├── database100mers.kmer_distrib
+    ├── database150mers.kmer_distrib
+    ├── database200mers.kmer_distrib
+    ├── database250mers.kmer_distrib
+    ├── database300mers.kmer_distrib
+    ├── database50mers.kmer_distrib
+    ├── database75mers.kmer_distrib
+    ├── hash.k2d
+    ├── inspect.txt
+    ├── opts.k2d
+    ├── seqid2taxid.map
+    └── taxo.k2d
 human_phinx_index(host index) ::
 
     mkdir -p reference/human_phinx_index/
@@ -44,6 +83,17 @@ human_phinx_index(host index) ::
     cd reference/human_phinx_index/
     cat GRCh38.p13.genome.fa.gz NC_001422.fasta >host.fasta
     bowtie2-build host.fasta host.fasta
+
+    human_phix_index/
+    ├── GRCh38.p13.genome.fa
+    ├── host.fasta
+    ├── host.fasta.1.bt2
+    ├── host.fasta.2.bt2
+    ├── host.fasta.3.bt2
+    ├── host.fasta.4.bt2
+    ├── host.fasta.rev.1.bt2
+    ├── host.fasta.rev.2.bt2
+    └── NC_001422.fasta
 
 adapter ::
 
@@ -64,12 +114,117 @@ ResFinder ::
     git clone https://git@bitbucket.org/genomicepidemiology/resfinder_db.git
     python3 INSTALL.py
 
+    ResFinder/
+    └── resfinder_db
+        ├── all.comp.b
+        ├── all.length.b
+        ├── all.name
+        ├── all.seq.b
+        ├── aminoglycoside.comp.b
+        ├── aminoglycoside.fsa
+        ├── aminoglycoside.length.b
+        ├── aminoglycoside.name
+        ├── aminoglycoside.seq.b
+        ├── antibiotic_classes.txt
+        ├── beta-lactam.comp.b
+        ├── beta-lactam.fsa
+        ├── beta-lactam.length.b
+        ├── beta-lactam.name
+        ├── beta-lactam.seq.b
+        ├── CHECK-entries.sh
+        ├── colistin.comp.b
+        ├── colistin.fsa
+        ├── colistin.length.b
+        ├── colistin.name
+        ├── colistin.seq.b
+        ├── config
+        ├── disinfectant.comp.b
+        ├── disinfectant.fsa
+        ├── disinfectant.length.b
+        ├── disinfectant.name
+        ├── disinfectant.seq.b
+        ├── fosfomycin.comp.b
+        ├── fosfomycin.fsa
+        ├── fosfomycin.length.b
+        ├── fosfomycin.name
+        ├── fosfomycin.seq.b
+        ├── fusidicacid.comp.b
+        ├── fusidicacid.fsa
+        ├── fusidicacid.length.b
+        ├── fusidicacid.name
+        ├── fusidicacid.seq.b
+        ├── glycopeptide.comp.b
+        ├── glycopeptide.fsa
+        ├── glycopeptide.length.b
+        ├── glycopeptide.name
+        ├── glycopeptide.seq.b
+        ├── history.txt
+        ├── INSTALL.py
+        ├── macrolide.comp.b
+        ├── macrolide.fsa
+        ├── macrolide.length.b
+        ├── macrolide.name
+        ├── macrolide.seq.b
+        ├── nitroimidazole.comp.b
+        ├── nitroimidazole.fsa
+        ├── nitroimidazole.length.b
+        ├── nitroimidazole.name
+        ├── nitroimidazole.seq.b
+        ├── notes.txt
+        ├── oxazolidinone.comp.b
+        ├── oxazolidinone.fsa
+        ├── oxazolidinone.length.b
+        ├── oxazolidinone.name
+        ├── oxazolidinone.seq.b
+        ├── phenicol.comp.b
+        ├── phenicol.fsa
+        ├── phenicol.length.b
+        ├── phenicol.name
+        ├── phenicol.seq.b
+        ├── phenotype_panels.txt
+        ├── phenotypes.txt
+        ├── pseudomonicacid.comp.b
+        ├── pseudomonicacid.fsa
+        ├── pseudomonicacid.length.b
+        ├── pseudomonicacid.name
+        ├── pseudomonicacid.seq.b
+        ├── quinolone.comp.b
+        ├── quinolone.fsa
+        ├── quinolone.length.b
+        ├── quinolone.name
+        ├── quinolone.seq.b
+        ├── README.md
+        ├── rifampicin.comp.b
+        ├── rifampicin.fsa
+        ├── rifampicin.length.b
+        ├── rifampicin.name
+        ├── rifampicin.seq.b
+        ├── sulphonamide.comp.b
+        ├── sulphonamide.fsa
+        ├── sulphonamide.length.b
+        ├── sulphonamide.name
+        ├── sulphonamide.seq.b
+        ├── tetracycline.comp.b
+        ├── tetracycline.fsa
+        ├── tetracycline.length.b
+        ├── tetracycline.name
+        ├── tetracycline.seq.b
+        ├── trimethoprim.comp.b
+        ├── trimethoprim.fsa
+        ├── trimethoprim.length.b
+        ├── trimethoprim.name
+        └── trimethoprim.seq.b
+
 diamond ::
 
     mkdir reference/diamond
     wget https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nr.gz
     gunzip nr.gz
     diamond makedb --in nr -d nr
+
+    diamond/
+    ├── nr
+    └── nr.dmnd
 
 megan6 ::
 
@@ -79,6 +234,10 @@ megan6 ::
     wget https://software-ab.informatik.uni-tuebingen.de/download/megan6/megan-map-Feb2022.db.zip
     gunzip megan-map-Feb2022.db.zip
 
+    MEGAN/
+    ├── megan-map-Feb2022.db
+    └── megan-map-Feb2022.db.zip
+
 VFDB ::
 
     mkdir reference/VFDB
@@ -86,3 +245,13 @@ VFDB ::
     wget http://www.mgc.ac.cn/VFs/Down/VFDB_setB_pro.fas.gz
     makeblastdb -in VFDB_setB_nt.fas -dbtype nucl -out VFDB_setB_nt.fas
     makeblastdb -in VFDB_setB_pro.fas -dbtype prot -out VFDB_setB_pro.fas
+
+    VFDB/
+    ├── VFDB_setB_nt.fas
+    ├── VFDB_setB_nt.fas.nhr
+    ├── VFDB_setB_nt.fas.nin
+    ├── VFDB_setB_nt.fas.nsq
+    ├── VFDB_setB_pro.fas
+    ├── VFDB_setB_pro.fas.phr
+    ├── VFDB_setB_pro.fas.pin
+    └── VFDB_setB_pro.fas.psq
