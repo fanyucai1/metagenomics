@@ -4,23 +4,23 @@ metaphlan ::
     #http://cmprod1.cibio.unitn.it/biobakery3/metaphlan_databases/
     mkdir -p reference/metaphlan
     cd reference/metaphlan
-    wget http://cmprod1.cibio.unitn.it/biobakery3/metaphlan_databases/mpa_v31_CHOCOPhlAn_201901.tar
-    tar xvf mpa_v31_CHOCOPhlAn_201901.tar
-    bunzip2 mpa_v31_CHOCOPhlAn_201901.fna.bz2
-    bowtie2-build mpa_v31_CHOCOPhlAn_201901.fna
-    wget http://cmprod1.cibio.unitn.it/biobakery3/metaphlan_databases/mpa_v31_CHOCOPhlAn_201901_marker_info.txt.bz2
-    bunzip2 mpa_v31_CHOCOPhlAn_201901_marker_info.txt.bz2
+    wget http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan21_CHOCOPhlAnSGB_202103.tar
+    wget http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan21_CHOCOPhlAnSGB_202103_marker_info.txt.bz2
+    wget http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan21_CHOCOPhlAnSGB_202103_species.txt.bz2
+    tar xvf mpa_vJan21_CHOCOPhlAnSGB_202103.tar
+    bunzip2 *.bz2
+    bowtie2-build mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.fna mpa_vJan21_CHOCOPhlAnSGB_202103_SGB
 
     metaphlan/
-    ├── mpa_v31_CHOCOPhlAn_201901.1.bt2
-    ├── mpa_v31_CHOCOPhlAn_201901.2.bt2
-    ├── mpa_v31_CHOCOPhlAn_201901.3.bt2
-    ├── mpa_v31_CHOCOPhlAn_201901.4.bt2
-    ├── mpa_v31_CHOCOPhlAn_201901.fna
-    ├── mpa_v31_CHOCOPhlAn_201901_marker_info.txt
-    ├── mpa_v31_CHOCOPhlAn_201901.pkl
-    ├── mpa_v31_CHOCOPhlAn_201901.rev.1.bt2
-    └── mpa_v31_CHOCOPhlAn_201901.rev.2.bt2
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.1.bt2
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.2.bt2
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.3.bt2
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.4.bt2
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.fna
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB_marker_info.txt
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.pkl
+    ├── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.rev.1.bt2
+    └── mpa_vJan21_CHOCOPhlAnSGB_202103_SGB.rev.2.bt2
 
 CARD   ::
 
