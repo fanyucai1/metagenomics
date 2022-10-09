@@ -27,11 +27,11 @@ if not os.path.exists(args.outdir):
 args.reference=os.path.abspath(args.reference)
 ##############################################################################
 cmd="docker run -v %s:/raw_data/ -v %s:/reference/ -v %s:/outdir/ %s "%(in_dir,args.reference,args.outdir,docker_name)
-cmd+="sh -c \"export PATH=/software/ncbi-blast-2.13.0+/bin/:$PATH && " \
+cmd+="sh -c \"export GIT_PYTHON_REFRESH=quiet && export PATH=/software/ncbi-blast-2.13.0+/bin/:$PATH && " \
      "/software/python3/Python-v3.10.5/bin/python3 /software/resfinder/run_resfinder.py " \
      "-ifq /raw_data/%s /raw_data/%s -o /outdir/ " \
      "--species \'Other\' " \
-     "-db_res /reference/db_resfinder -acq\""%(a,b)
+     "-db_res /reference/resfinder_db -acq\""%(a,b)
 
 print(cmd)
 

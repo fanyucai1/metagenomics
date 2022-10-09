@@ -122,3 +122,22 @@ CARD.py
                             path database of ResFinder
       -p PREFIX, --prefix PREFIX
                             prefix of output
+
+diamond.py
+==============================
+::
+
+    usage: Use Diamond mapping the database to classify. [-h] -p1 PE1 -p2 PE2 -o OUTDIR -p PREFIX -d DIAMOND -m MAPPING_FILE
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -p1 PE1, --pe1 PE1    5 reads
+      -p2 PE2, --pe2 PE2    3 reads
+      -o OUTDIR, --outdir OUTDIR
+                            output directory
+      -p PREFIX, --prefix PREFIX
+                            prefix of output
+      -d DIAMOND, --diamond DIAMOND
+                            diamond database file **.dmnd
+      -m MAPPING_FILE, --mapping_file MAPPING_FILE
+                            megan6 mapping file.

@@ -1,4 +1,4 @@
-usr guide
+user guide
 +++++++++++++++++++++++++++++++++++++
 
 step1:prepare reference
@@ -10,3 +10,7 @@ docker pull fanyucai1/mngs:latest
 
 step3:script
 ----------------------------------------
+
+
+
+判断物种阳性：

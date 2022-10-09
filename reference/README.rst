@@ -70,3 +70,11 @@ diamond ::
     wget https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/swissprot.gz
     diamond makedb --in swissprot -d swissprot
     diamond makedb --in nr -d nr
+
+VFDB ::
+
+    mkdir reference/VFDB
+    wget http://www.mgc.ac.cn/VFs/Down/VFDB_setB_nt.fas.gz
+    wget http://www.mgc.ac.cn/VFs/Down/VFDB_setB_pro.fas.gz
+    makeblastdb -in VFDB_setB_nt.fas -dbtype nucl -out VFDB_setB_nt.fas
+    makeblastdb -in VFDB_setB_pro.fas -dbtype prot -out VFDB_setB_pro.fas
