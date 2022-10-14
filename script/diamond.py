@@ -12,6 +12,7 @@ parser.add_argument("-o","--outdir",help="output directory",required=True)
 parser.add_argument("-p","--prefix",help="prefix of output",required=True)
 parser.add_argument("-d","--diamond",help="diamond database file **.dmnd",required=True)
 parser.add_argument("-m","--mapping_file",help= "megan6 mapping file.",required=True)
+parser.add_argument("-t","--taxonomy",help="taxonomy directory from krona build",required=True)
 args=parser.parse_args()
 
 ##step1:prepare input
@@ -45,5 +46,11 @@ cmd+="/opt/conda/bin/blast2lca -i /outdir/%s.daa -f DAA -m BlastX -mdb /referenc
 print(cmd)
 subprocess.check_call(cmd,shell=True)
 
+#step5:parse dimond to krona
+cmd="docker run -v %s:/outdir/ -v %s:/software/KronaTools-2.8.1/taxonomy/ %s"%(args.outdir,args.taxonomy,docker_diamond)
+cmd+="sh -c \' diamond view -a /outdir/%s.daa --outfmt 6 --out /outdir/%s.blast.out "%(args.prefix,args.prefix)
+cmd+="&& ktImportBLAST -o /outdir/%s.krona.html /outdir/%s.blast.out\`"%(args.prefix,args.prefix)
+print(cmd)
+subprocess.check_call(cmd,shell=True)
 
 

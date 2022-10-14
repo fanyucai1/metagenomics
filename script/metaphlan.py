@@ -35,8 +35,8 @@ for i in os.listdir(reference_dir):
 
 cmd+="sh -c \"export PATH=/software/python3/Python-v3.10.5/bin/:$PATH && metaphlan /raw_data/%s,/raw_data/%s " \
      "--nproc 24 --bowtie2db /reference/ --bowtie2_exe /software/bowtie2-2.4.5-linux-x86_64/bowtie2 " \
-     "--bowtie2out /outdir/%s.bowtie2.bz2 --index %s --unknown_estimation " \
-     "--input_type fastq -o /outdir/%s_metaphlan.txt\""\
-     %(a,b,args.prefix,bowtie2_index,args.prefix)
+     "--bowtie2out /outdir/%s.bowtie2.bz2 --index %s -t rel_ab_w_read_stats " \
+     "--input_type fastq -o /outdir/%s_metaphlan.txt --biom /outdir/%s.biom\""\
+     %(a,b,args.prefix,bowtie2_index,args.prefix,args.prefix)
 print(cmd)
 subprocess.check_call(cmd,shell=True)

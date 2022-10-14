@@ -255,3 +255,17 @@ VFDB ::
     ├── VFDB_setB_pro.fas.phr
     ├── VFDB_setB_pro.fas.pin
     └── VFDB_setB_pro.fas.psq
+
+taxonomy ::
+
+    mkdir -p /reference/taxonomy/accession2taxid
+    cd /reference/taxonomy/accession2taxid
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/nucl_gb.accession2taxid.gz
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/nucl_wgs.accession2taxid.gz
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/dead_wgs.accession2taxid.gz
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/dead_prot.accession2taxid.gz
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/dead_nucl.accession2taxid.gz
+    /software/KronaTools-2.8.1/updateAccessions.sh --only-build /reference/taxonomy/
+    wget https://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz
+    /software/KronaTools-2.8.1/updateTaxonomy.sh --only-build /reference/taxonomy/

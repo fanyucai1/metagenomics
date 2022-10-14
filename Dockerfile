@@ -2,6 +2,8 @@ FROM fanyucai1/biobase:latest
 COPY *.gz /software/
 COPY *.zip /software/
 COPY *bz2 /software/
+COPY *.tar /software/
+COPY *.tgz /software/
 RUN mkdir -p /script/ && mkdir -p /raw_data/ && mkdir -p /reference/ && mkdir -p /outdir/
 RUN cd /software/ && tar xjvf bwa-0.7.17.tar.bz2 && cd bwa-0.7.17 && make && ln -s /software/bwa-0.7.17/bwa /usr/bin/bwa
 RUN cd /software/ && tar xjvf samtools-1.15.1.tar.bz2 && cd samtools-1.15.1 && ./configure && make && make install
@@ -26,16 +28,17 @@ COPY diamond /bin/
 COPY prodigal_v2.6.3 /bin/
 COPY jellyfish_v2.2.10 /bin/
 RUN sh /software/run.sh
-COPY Python-3.10.5.tgz /software/python3
-RUN cd /software/python3 && tar xvf Python-3.10.5.tgz && cd Python-3.10.5 && ./configure --prefix=/software/python3/Python-v3.10.5 --with-openssl=/usr/local/openssl && make -j20 && make install
-COPY rgi-5.2.1.tar /software/
-RUN cd /software/ && tar xvf rgi-5.2.1.tar && cd rgi-5.2.1 && /software/python3/Python-v3.7.0/bin/python3 setup.py install
+RUN cd /software/ && tar xvf Python-3.10.5.tgz && cd Python-3.10.5 && ./configure --prefix=/software/python3/Python-v3.10.5 --with-openssl=/usr/local/openssl && make -j20 && make install
+RUN yum install -y git
+RUN /software/python3/Python-v3.7.0/bin/python3 -m pip install --upgrade pip
+COPY rgi-6.0.0-requirements.txt /software/
+RUN cd /software/ && /software/python3/Python-v3.7.0/bin/pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r rgi-6.0.0-requirements.txt
+RUN cd /software/ && tar xvf rgi-6.0.0.tar && cd rgi-6.0.0 && /software/python3/Python-v3.7.0/bin/python3 setup.py install
 RUN /software/python3/Python-v3.10.5/bin/python3.10 -m pip install --upgrade pip
 RUN /software/python3/Python-v3.10.5/bin/pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple wheel tabulate biopython cgecore gitpython python-dateutil
 RUN /software/python3/Python-v3.10.5/bin/pip3 install MetaPhlAn==4.0.2
-RUN cd /software/ && rm -rf *tar.gz *rpm *tar *bz2 *zip *gz run.sh /software/python3/Python-3.10.5.tgz /software/python3/Python-3.10.5 /software/python3/Python-3.7.0
-RUN yum install -y git
 RUN cd /software/ && git clone https://git@bitbucket.org/genomicepidemiology/resfinder.git
 RUN cp /software/genomicepidemiology-kma-34dd939c90cd/kma /bin/
-RUN /software/python3/Python-v3.10.5/bin/pip3 install humann
-
+RUN cd /software/ && tar xvf KronaTools-2.8.1.tar && cd KronaTools-2.8.1 && perl install.pl
+RUN cd /software/ && tar xzvf KrakenTools.v1.2.tar.gz
+RUN cd /software/ && rm -rf *tar.gz *rpm *tar *bz2 *zip *gz run.sh /software/Python-3.10.5.tgz /software/Python-3.10.5 /software/python3/Python-3.7.0

@@ -28,8 +28,16 @@ reference_dir=os.path.abspath(args.index)
 
 cmd="docker run -v %s:/raw_data/ -v %s:/reference/ -v %s:/outdir/ %s "%(in_dir,reference_dir,args.outdir,docker_name)
 cmd+="sh -c \"export PATH=/software/kraken2-2.1.2/:$PATH && kraken2 --db /reference/ --threads 24 --output /outdir/%s.txt " \
-     "--minimum-base-quality 20 --use-mpa-style --report /outdir/%s.report.txt --paired /raw_data/%s /raw_data/%s \"" \
+     "--minimum-base-quality 20 --report /outdir/%s.report.txt --paired /raw_data/%s /raw_data/%s \"" \
      %(args.prefix,args.prefix,a,b)
 
+print(cmd)
+subprocess.check_call(cmd,shell=True)
+
+#######################################krakentools
+cmd="docker run -v %s:/outdir/ %s "%(args.outdir,docker_name)
+cmd+="sh -c \'/software/python3/Python-v3.10.5/bin/python3.10 /software/KrakenTools-1.2/kreport2krona.py " \
+     "-r /outdir/%s.report.txt -o /outdir/%s.kraken2krona.txt && " \
+     "ktImportText /outdir/%s.kraken2krona.txt -o /outdir/%s.krona.html \' "%(args.prefix,args.prefix,args.prefix,args.prefix)
 print(cmd)
 subprocess.check_call(cmd,shell=True)
