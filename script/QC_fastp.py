@@ -1,6 +1,7 @@
 import os
 import subprocess
 import argparse
+import json
 
 docker_name="mngs:latest"
 parser=argparse.ArgumentParser("Quality control")
@@ -41,3 +42,22 @@ cmd+="/software/fastp -i /raw_data/%s -I /raw_data/%s -o /outdir/%s.qc.R1.fq.gz"
 
 print(cmd)
 subprocess.check_call(cmd,shell=True)
+outfile=open("%s/%s.QC.tsv"%(args.outdir,args.prefix),"w")
+outfile.write("SampleID\tTotal_reads\tTotal_bases\tQ20_rate\tQ30_rate\tgc_content\tTotal_reads(clean)\tTotal_bases\tQ20_rate\tQ30_rate\tgc_content\n")
+with open("%s/%s.qc.json" %(args.outdir,args.prefix), "r") as load_f:
+    load_dict = json.load(load_f)
+    outfile.write("%s\t"%(args.prefix))
+    outfile.write("%s\t%s\t%s\t%s\t%s\t"
+                  %(load_dict['summary']['before_filtering']['total_reads'],
+                    load_dict['summary']['before_filtering']['total_bases'],
+                    load_dict['summary']['before_filtering']['q20_rate'],
+                    load_dict['summary']['before_filtering']['q30_rate'],
+                    load_dict['summary']['before_filtering']['gc_content']))
+    outfile.write("%s\t%s\t%s\t%s\t%s\n"
+                  % (load_dict['summary']['after_filtering']['total_reads'],
+                     load_dict['summary']['after_filtering']['total_bases'],
+                     load_dict['summary']['after_filtering']['q20_rate'],
+                     load_dict['summary']['after_filtering']['q30_rate'],
+                     load_dict['summary']['after_filtering']['gc_content']))
+
+outfile.close()
