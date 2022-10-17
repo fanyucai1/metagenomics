@@ -37,7 +37,7 @@ cmd="docker run -v %s:/raw_data/ -v %s:/reference/ -v %s:/outdir/ %s "%(in_dir,a
 cmd+="/software/fastp -i /raw_data/%s -I /raw_data/%s -o /outdir/%s.qc.R1.fq.gz" \
      " -O /outdir/%s.qc.R2.fq.gz --dedup --thread 16 --low_complexity_filter" \
      " --adapter_fasta /reference/%s --length_required 36 " \
-     "--html /outdir/%s.qc.html" %(a,b,args.prefix,args.prefix,adapter_filename,args.prefix)
+     "--html /outdir/%s.qc.html --json /outdir/%s.qc.json" %(a,b,args.prefix,args.prefix,adapter_filename,args.prefix,args.prefix)
 
 print(cmd)
 subprocess.check_call(cmd,shell=True)
