@@ -31,3 +31,24 @@ cmd+="sh -c \"export PATH=/software/python3/Python-v3.7.0/bin/:/software/SPAdes-
 
 subprocess.check_call(cmd,shell=True)
 
+infile=open("%s/scaffolds.fasta"%(args.outdir),"r")
+outfile1=open("%s/scaffolds_500bp.fasta"%(args.outdir),"w")
+outfile2=open("%s/scaffolds_1000bp.fasta"%(args.outdir),"w")
+fa,id={},""
+for line in infile:
+    line=line.strip()
+    if line.startswith(">"):
+        id=line
+        fa[id]=""
+    else:
+        fa[id]+=line
+infile.close()
+for key in fa:
+    if int(key.split("_")[3])>=500:
+        outfile1.write("%s\n%s\n"%(key,fa[key]))
+    if int(key.split("_")[3]) >= 1000:
+        outfile2.write("%s\n%s\n" % (key, fa[key]))
+outfile1.close()
+outfile2.close()
+
+

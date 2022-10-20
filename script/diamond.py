@@ -21,6 +21,7 @@ args.pe2 = os.path.abspath(args.pe2)
 args.diamond=os.path.abspath(args.diamond)
 args.mapping_file=os.path.abspath(args.mapping_file)
 args.outdir=os.path.abspath(args.outdir)
+args.taxonomy=os.path.abspath(args.taxonomy)
 if not os.path.exists(args.outdir):
     subprocess.check_call('mkdir -p %s'%(args.outdir),shell=True)
 
@@ -37,7 +38,7 @@ cmd+="diamond blastx -q /outdir/%s.merge.fastq --threads 24 --evalue 0.00001 --m
      "--out /outdir/%s.daa --outfmt 100"%(args.prefix,args.diamond.split("/")[-1].split(".dmnd")[0],args.prefix)
 print(cmd)
 subprocess.check_call(cmd,shell=True)
-subprocess.check_call("rm -rf >%s/%s.merge.fastq"%(args.outdir,args.prefix),shell=True)
+subprocess.check_call("rm -rf %s/%s.merge.fastq"%(args.outdir,args.prefix),shell=True)
 
 #step4:parse diamond output (daa file) to txt
 cmd="docker run -v %s:/outdir/ -v %s:/reference/ %s "%(args.outdir,os.path.dirname(args.mapping_file),docker_megan)
@@ -48,8 +49,7 @@ subprocess.check_call(cmd,shell=True)
 
 #step5:parse dimond to krona
 cmd="docker run -v %s:/outdir/ -v %s:/software/KronaTools-2.8.1/taxonomy/ %s"%(args.outdir,args.taxonomy,docker_diamond)
-cmd+="sh -c \' diamond view -a /outdir/%s.daa --outfmt 6 --out /outdir/%s.blast.out "%(args.prefix,args.prefix)
-cmd+="&& ktImportBLAST -o /outdir/%s.krona.html /outdir/%s.blast.out\`"%(args.prefix,args.prefix)
+cmd+=" sh -c \' diamond view -a /outdir/%s.daa --outfmt 6 --out /outdir/%s.blast.out && ktImportBLAST -o /outdir/%s.krona.html /outdir/%s.blast.out \'"%(args.prefix,args.prefix,args.prefix,args.prefix)
 print(cmd)
 subprocess.check_call(cmd,shell=True)
 
