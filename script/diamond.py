@@ -1,6 +1,7 @@
 import os
 import subprocess
 import argparse
+import re
 
 docker_diamond="mngs:latest"
 docker_megan="megan6:latest"
@@ -52,5 +53,33 @@ cmd="docker run -v %s:/outdir/ -v %s:/software/KronaTools-2.8.1/taxonomy/ %s"%(a
 cmd+=" sh -c \' diamond view -a /outdir/%s.daa --outfmt 6 --out /outdir/%s.blast.out && ktImportBLAST -o /outdir/%s.krona.html /outdir/%s.blast.out \'"%(args.prefix,args.prefix,args.prefix,args.prefix)
 print(cmd)
 subprocess.check_call(cmd,shell=True)
+
+infile=open("%s/%s.details.txt"%(args.outdir,args.prefix),"r")
+outfile=open("%s/%s.stat.txt"%(args.outdir,args.prefix),"w")
+outfile.write("#Counts\tTaxonomy\n")
+tax={}
+for line in infile:
+    line=line.strip()
+    array=line.split(" ")
+    str_tmp=""
+    for i in range(1,len(array)):
+        str_tmp+=array[i]
+    if str_tmp in tax:
+        tax[str_tmp]+=1
+    else:
+        tax[str_tmp]=1
+for key in tax:
+    old1 = re.compile(r";\d+;")#匹配以及去掉相似性数值
+    key1 = re.sub(old1, "\t", key)
+    old2 = re.compile(r"\w__unknown\t")#去掉信息中对应对unknown
+    key2=re.sub(old2,"",key1)
+    print(key2)
+    if key2.split("\t")[0]==";":
+        outfile.write("%s\tOther\n" % (tax[key]))
+    else:
+        outfile.write("%s\t%s\n"%(tax[key],key2.replace(";","")))
+
+infile.close()
+outfile.close()
 
 
