@@ -4,6 +4,7 @@ COPY *.zip /software/
 COPY *bz2 /software/
 COPY *.tar /software/
 COPY *.tgz /software/
+RUN cd /software/ && tar xzvf MEGAHIT-1.2.9-Linux-x86_64-static.tar.gz
 RUN mkdir -p /script/ && mkdir -p /raw_data/ && mkdir -p /reference/ && mkdir -p /outdir/
 RUN cd /software/ && tar xjvf bwa-0.7.17.tar.bz2 && cd bwa-0.7.17 && make && ln -s /software/bwa-0.7.17/bwa /usr/bin/bwa
 RUN cd /software/ && tar xjvf samtools-1.15.1.tar.bz2 && cd samtools-1.15.1 && ./configure && make && make install
