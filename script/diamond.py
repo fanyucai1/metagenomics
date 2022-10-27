@@ -34,7 +34,7 @@ else:
 
 #step3:diamond mapping to database
 cmd="docker run -v %s:/outdir/ -v %s:/reference/ %s "%(args.outdir,os.path.dirname(args.diamond),docker_diamond)
-cmd+="diamond blastx -q /outdir/%s.merge.fastq --threads 24 --evalue 0.00001 --max-target-seqs 1 " \
+cmd+="diamond blastx -q /outdir/%s.merge.fastq --threads 24 --evalue 0.0000000001 --max-target-seqs 1 " \
      "--db /reference/%s " \
      "--out /outdir/%s.daa --outfmt 100"%(args.prefix,args.diamond.split("/")[-1].split(".dmnd")[0],args.prefix)
 print(cmd)

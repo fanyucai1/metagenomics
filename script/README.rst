@@ -141,3 +141,18 @@ diamond.py
                             diamond database file **.dmnd
       -m MAPPING_FILE, --mapping_file MAPPING_FILE
                             megan6 mapping file.
+
+megahit.py
+======================================
+::
+
+    usage: MEGAHIT is an ultra-fast and memory-efficient NGS assembler [-h] -p1 PE1 -p2 PE2 -o OUTDIR -p PREFIX
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -p1 PE1, --pe1 PE1    R1 fastq file
+      -p2 PE2, --pe2 PE2    R2 fastq file
+      -o OUTDIR, --outdir OUTDIR
+                            output directory
+      -p PREFIX, --prefix PREFIX
+                            prefix of output
