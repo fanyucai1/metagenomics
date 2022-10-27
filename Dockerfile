@@ -4,6 +4,8 @@ COPY *.zip /software/
 COPY *bz2 /software/
 COPY *.tar /software/
 COPY *.tgz /software/
+RUN cd /software/ && tar xzvf hmmer-3.3.1.tar.gz && cd hmmer-3.3.1 && ./configure && make install
+RUN cd /software/ && tar xzvf cd-hit-v4.8.1-2019-0228.tar.gz && cd cd-hit-v4.8.1-2019-0228 && make
 RUN cd /software/ && tar xzvf MEGAHIT-1.2.9-Linux-x86_64-static.tar.gz
 RUN mkdir -p /script/ && mkdir -p /raw_data/ && mkdir -p /reference/ && mkdir -p /outdir/
 RUN cd /software/ && tar xjvf bwa-0.7.17.tar.bz2 && cd bwa-0.7.17 && make && ln -s /software/bwa-0.7.17/bwa /usr/bin/bwa
@@ -23,14 +25,16 @@ RUN cd /software/ && tar xzvf cmake-3.24.0-rc3-linux-x86_64.tar.gz
 RUN cd /software && tar xzvf bamtools-2.5.1.tar.gz  && cd bamtools-2.5.1 && mkdir build
 RUN cd /software/bamtools-2.5.1/build && /software/cmake-3.24.0-rc3-linux-x86_64/bin/cmake ../ && make install
 COPY fastp /software/
-COPY freebayes-1.3.6-linux-amd64-static /software/
+COPY freebayes-1.3.6-linux-amd64-static /usr/bin/freebayes
 COPY run.sh /software/
 COPY diamond /bin/
 COPY prodigal_v2.6.3 /bin/
 COPY jellyfish_v2.2.10 /bin/
 RUN sh /software/run.sh
 RUN cd /software/ && tar xvf Python-3.10.5.tgz && cd Python-3.10.5 && ./configure --prefix=/software/python3/Python-v3.10.5 --with-openssl=/usr/local/openssl && make -j20 && make install
-RUN yum install -y git
+RUN yum install -y git enscript ghostscript
+COPY mafft-7.490-gcc_fc6.x86_64.rpm /software/
+RUN cd /software/ && rpm -ivh mafft-7.490-gcc_fc6.x86_64.rpm
 RUN /software/python3/Python-v3.7.0/bin/python3 -m pip install --upgrade pip
 COPY rgi-6.0.0-requirements.txt /software/
 RUN cd /software/ && /software/python3/Python-v3.7.0/bin/pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r rgi-6.0.0-requirements.txt
