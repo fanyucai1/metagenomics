@@ -58,7 +58,7 @@ kraken2 ::
 
     mkdir -p reference/kraken2
     cd reference/kraken2
-    wget https://genome-idx.s3.amazonaws.com/kraken/k2_standard_20220607.tar.gz
+    wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspf_16gb_20220908.tar.gz
 
     kraken2
     ├── database100mers.kmer_distrib
@@ -269,3 +269,4 @@ taxonomy ::
     /software/KronaTools-2.8.1/updateAccessions.sh --only-build /reference/taxonomy/
     wget https://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz
     /software/KronaTools-2.8.1/updateTaxonomy.sh --only-build /reference/taxonomy/
+
