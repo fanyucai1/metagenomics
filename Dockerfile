@@ -32,7 +32,7 @@ COPY prodigal_v2.6.3 /bin/
 COPY jellyfish_v2.2.10 /bin/
 RUN sh /software/run.sh
 RUN cd /software/ && tar xvf Python-3.10.5.tgz && cd Python-3.10.5 && ./configure --prefix=/software/python3/Python-v3.10.5 --with-openssl=/usr/local/openssl && make -j20 && make install
-RUN yum install -y git enscript ghostscript
+RUN yum install -y git enscript ghostscript htslib bcftools
 COPY mafft-7.490-gcc_fc6.x86_64.rpm /software/
 RUN cd /software/ && rpm -ivh mafft-7.490-gcc_fc6.x86_64.rpm
 RUN /software/python3/Python-v3.7.0/bin/python3 -m pip install --upgrade pip
